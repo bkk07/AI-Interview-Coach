@@ -1,12 +1,17 @@
 from llm.ollama_client import get_ollama_model
 from prompts.question_prompt import question_prompt
+from parsers.pydantic_output_parser import get_pydantic_parser
+
 llm = get_ollama_model()
-prompt = question_prompt.invoke(
+parser = get_pydantic_parser()
+
+chain = question_prompt | llm | parser
+
+question = chain.invoke(
     {
         "domain": "Graphs",
-        "difficulty": "EASY",
-        "round": "Microsoft"
+        "difficulty": "Easy",
+        "round": "Microsoft",
     }
 )
-for chunck in llm.stream(prompt):
-    print(chunck.content, end="", flush=True)
+print(question)

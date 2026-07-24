@@ -1,4 +1,7 @@
 from langchain_core.prompts import ChatPromptTemplate
+from parsers.pydantic_output_parser import get_pydantic_parser
+
+parser = get_pydantic_parser()
 
 question_prompt = ChatPromptTemplate.from_messages(
     [
@@ -7,45 +10,26 @@ question_prompt = ChatPromptTemplate.from_messages(
             """
 You are an expert Competitive Programming and Technical Interview Coach.
 
-Your task is to generate ONE original coding problem.
+Generate ONE original coding interview question.
 
-Follow these rules strictly:
-
-1. Generate exactly one problem.
+Rules:
+1. Generate exactly one original problem.
 2. Match the requested domain and difficulty.
-3. The problem should resemble problems asked in real interviews or coding contests,
-   but it must NOT be a copy of an existing problem.
-4. Do NOT provide:
-   - Solution
-   - Hint
-   - Algorithm
-   - Code
-   - Complexity analysis
-5. Make the statement clear and professionally written.
-6. Include:
-   - Title
-   - Problem Statement
-   - Input Format
-   - Output Format
-   - Constraints
-   - Sample Input
-   - Sample Output
-   - Explanation
-7. Ensure the constraints are realistic for the requested difficulty.
-8. Return only the problem statement in Markdown.
-            """,
+3. Do NOT generate the solution or hints.
+4. The output MUST follow the format below.
+
+{format_instructions}
+"""
         ),
         (
             "human",
             """
-Generate a coding question with the following requirements:
-
-Domain      : {domain}
-Difficulty  : {difficulty}
-Interview   : {round}
-
-Generate the problem.
-            """,
+Domain: {domain}
+Difficulty: {difficulty}
+Interview Round: {round}
+"""
         ),
     ]
+).partial(
+    format_instructions=parser.get_format_instructions()
 )
