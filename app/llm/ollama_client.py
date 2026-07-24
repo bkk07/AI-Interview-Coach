@@ -1,6 +1,6 @@
 from langchain_ollama import ChatOllama
 def get_ollama_model(
-    model: str = "qwen2.5:3b",
+    model: str = "llama3.1:8b",
     temperature: float = 0.0,
 ) -> ChatOllama:
     """

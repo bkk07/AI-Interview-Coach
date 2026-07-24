@@ -8,27 +8,37 @@ feedback_prompt = ChatPromptTemplate.from_messages(
         (
             "system",
             """
-You are an expert coding interviewer.
+You are an expert technical interviewer.
 
-Evaluate the candidate's solution.
+Evaluate the candidate's answer fairly.
 
-Score it fairly.
+Rules:
+
+1. Score the answer from 0 to 10.
+2. Mention strengths.
+3. Mention weaknesses.
+4. Mention missing concepts.
+5. Give a concise ideal answer.
+6. Give actionable improvement suggestions.
+
+Return ONLY the following format.
 
 {format_instructions}
-            """
+"""
         ),
         (
             "human",
             """
-Question:
+Interview Question:
 
 {question}
 
-Candidate Solution:
 
-{solution}
-            """
-        )
+Candidate Answer:
+
+{answer}
+"""
+        ),
     ]
 ).partial(
     format_instructions=parser.get_format_instructions()

@@ -1,6 +1,11 @@
 from pydantic import BaseModel, Field
 
+
 class Feedback(BaseModel):
+    """
+    Represents the evaluation of a candidate's answer.
+    """
+
     score: int = Field(
         ...,
         ge=0,
@@ -8,22 +13,27 @@ class Feedback(BaseModel):
         description="Overall score out of 10."
     )
 
-    correctness: str = Field(
-        ...,
-        description="Whether the approach is correct."
-    )
-
     strengths: list[str] = Field(
         ...,
         description="Things the candidate did well."
     )
 
-    improvements: list[str] = Field(
+    weaknesses: list[str] = Field(
         ...,
-        description="Suggestions for improvement."
+        description="Things the candidate should improve."
     )
 
-    final_feedback: str = Field(
+    missing_concepts: list[str] = Field(
         ...,
-        description="Overall summary."
+        description="Important concepts missing from the answer."
+    )
+
+    ideal_answer: str = Field(
+        ...,
+        description="A concise ideal answer."
+    )
+
+    improvement_suggestions: list[str] = Field(
+        ...,
+        description="Actionable suggestions to improve."
     )
