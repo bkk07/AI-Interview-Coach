@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from models.question import Question
 from models.feedback import Feedback
@@ -11,4 +11,6 @@ class InterviewRound(BaseModel):
 
 
 class InterviewSession(BaseModel):
-    rounds: list[InterviewRound] = []
+    difficulty: str
+    company: str
+    rounds: list[InterviewRound] = Field(default_factory=list)
