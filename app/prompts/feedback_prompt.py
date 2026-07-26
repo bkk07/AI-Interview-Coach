@@ -20,6 +20,9 @@ Rules:
 4. Mention missing concepts.
 5. Give a concise ideal answer.
 6. Give actionable improvement suggestions.
+7. Evaluate only what is explicitly present in the candidate answer.
+8. Do not assume, invent, or infer code, algorithms, complexity, or edge cases that the candidate did not write.
+9. If the candidate answer is empty or only whitespace, the score must be 0 and the strengths must say that no answer was submitted.
 
 Return ONLY the following format.
 

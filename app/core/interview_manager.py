@@ -1,6 +1,7 @@
 from chains.question_chain import question_chain
 from chains.feedback_chain import feedback_chain
 from utils.display import display_feedback
+from models.feedback import Feedback
 from models.session import InterviewRound
 from chains.report_chain import report_chain
 
@@ -100,6 +101,20 @@ class InterviewManager:
         return "\n".join(lines)
 
     def evaluate_answer(self, question, answer):
+        print("==============DEBUG=============")
+        print(f"Question: {question.question_text}")
+        print(f"Answer: {answer}")
+
+        if not answer.strip():
+            return Feedback(
+                score=0,
+                strengths=["No answer was submitted."],
+                weaknesses=["The response is empty, so no solution approach, code, complexity analysis, or edge cases can be evaluated."],
+                missing_concepts=["A correct algorithm for the problem.", "Time and space complexity analysis.", "Edge case handling."],
+                ideal_answer="Use Kadane's algorithm: scan the array once, keep the best subarray sum ending at the current index, and update the global maximum. This runs in O(n) time and O(1) space.",
+                improvement_suggestions=["Submit at least a brief approach before typing END.", "Include the algorithm, complexity, and important edge cases."],
+            )
+
         feedback = self.feedback_chain.invoke({
             "question": question.question_text,
             "answer": answer,
