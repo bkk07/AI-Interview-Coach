@@ -118,35 +118,35 @@ class InterviewManager:
             )
         self.session.rounds.append(interview_round)
 
-        def generate_final_report(self):
+    def generate_final_report(self):
 
-            report = self.report_chain.invoke(
-                {
-                    "session": self.session.model_dump_json(indent=4)
-                }
-            )
+        report = self.report_chain.invoke(
+            {
+                "session": self.session.model_dump_json(indent=4)
+            }
+        )
 
-            print("\n")
-            print("=" * 60)
-            print("FINAL INTERVIEW REPORT")
-            print("=" * 60)
+        print("\n")
+        print("=" * 60)
+        print("FINAL INTERVIEW REPORT")
+        print("=" * 60)
 
-            print(f"\nOverall Score: {report.overall_score}/100")
+        print(f"\nOverall Score: {report.overall_score}/100")
 
-            print("\nSummary")
-            print(report.summary)
+        print("\nSummary")
+        print(report.summary)
 
-            print("\nStrengths")
-            for item in report.strengths:
-                print(f"✔ {item}")
+        print("\nStrengths")
+        for item in report.strengths:
+            print(f"✔ {item}")
 
-            print("\nWeaknesses")
-            for item in report.weaknesses:
-                print(f"✘ {item}")
+        print("\nWeaknesses")
+        for item in report.weaknesses:
+            print(f"✘ {item}")
 
-            print("\nRecommendations")
-            for item in report.recommendations:
-                print(f"• {item}")
+        print("\nRecommendations")
+        for item in report.recommendations:
+            print(f"• {item}")
 
 
     def choose_domain(self):
@@ -171,5 +171,5 @@ class InterviewManager:
 
             if choice in domains:
                 return domains[choice]
-
+            
             print("Invalid choice. Please try again.")
